@@ -107,9 +107,6 @@ enum signalrgb_responses {
     PROTOCOL_VERSION_BYTE_1 = 1,
     PROTOCOL_VERSION_BYTE_2 = 0,
     PROTOCOL_VERSION_BYTE_3 = 4,
-    QMK_VERSION_BYTE_1 = 0,
-    QMK_VERSION_BYTE_2 = 20,
-    QMK_VERSION_BYTE_3 = 4,
     DEVICE_UNIQUE_IDENTIFIER_BYTE_1 = 0,
     DEVICE_UNIQUE_IDENTIFIER_BYTE_2 = 0,
     DEVICE_UNIQUE_IDENTIFIER_BYTE_3 = 0,
@@ -125,12 +122,14 @@ enum signalrgb_responses {
 
 /*
 DEVICE, DEVICE_UNIQUE_IDENTIFIER_BYTE_1,DEVICE_UNIQUE_IDENTIFIER_BYTE_2,DEVICE_UNIQUE_IDENTIFIER_BYTE_3
-gmmk/pro/rev2/ansi:via                0 0 5
-gmmk/pro/rev2/iso:via                 0 0 6
-gmmk/gmmk2/p65/ansi:via               0 0 7
-gmmk/gmmk2/p65/iso:via                0 0 8
-gmmk/gmmk2/p96/ansi:via               0 0 9
-gmmk/gmmk2/p96/iso:via                0 0 10
+gmmk/pro/rev1/ansi:via                  0 0 5
+gmmk/pro/rev2/ansi:via                  0 0 5
+gmmk/pro/rev1/iso:via                   0 0 6
+gmmk/pro/rev2/iso:via                   0 0 6
+gmmk/gmmk2/p65/ansi:via                 0 0 7
+gmmk/gmmk2/p65/iso:via                  0 0 8
+gmmk/gmmk2/p96/ansi:via                 0 0 9
+gmmk/gmmk2/p96/iso:via                  0 0 10
 */
 
 enum via_keyboard_value_id {
@@ -185,11 +184,6 @@ void via_eeprom_set_valid(bool valid);
 void eeconfig_init_via(void);
 void via_init(void);
 
-// Used by VIA to store and retrieve the layout options.
-uint32_t via_get_layout_options(void);
-void     via_set_layout_options(uint32_t value);
-void     via_set_layout_options_kb(uint32_t value);
-
 //Used to handle SignalRGB Compatibility
 void get_qmk_version(void);
 void get_signalrgb_protocol_version(void);
@@ -199,6 +193,11 @@ void signalrgb_mode_enable(void);
 void signalrgb_mode_disable(void);
 void signalrgb_total_leds(void);
 void signalrgb_firmware_type(void);
+
+// Used by VIA to store and retrieve the layout options.
+uint32_t via_get_layout_options(void);
+void     via_set_layout_options(uint32_t value);
+void     via_set_layout_options_kb(uint32_t value);
 
 // Used by VIA to tell a device to flash LEDs (or do something else) when that
 // device becomes the active device being configured, on startup or switching
