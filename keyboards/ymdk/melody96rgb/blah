@@ -1,0 +1,16 @@
+{
+	"keyboard_name": "Melody96RGB",
+	"manufacturer": "MT",
+	"usb": {
+		"vid": "0x4D54",
+		"pid": "0x6060",
+		"device_version": "1.0.0"
+	},
+	"lighting": "qmk_rgblight",
+	"processor": "atmega32u4",
+	"bootloader": "atmel-dfu",
+	"matrix": {
+		"rows": 12,
+		"cols": 9
+	}
+}
