@@ -16,6 +16,8 @@
 
 #pragma once
 
+#define DEBOUNCE 2
+
 /* Use 5 dynamic keymap layers */
 #define DYNAMIC_KEYMAP_LAYER_COUNT 6
 

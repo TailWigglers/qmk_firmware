@@ -1,5 +1,7 @@
 #pragma once
 
+#define DEBOUNCE 6
+
 /* key matrix size */
 //#define MATRIX_ROWS 12
 //#define MATRIX_COLS 9
