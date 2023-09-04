@@ -12,3 +12,5 @@ RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 ENCODER_ENABLE = yes
 RGB_MATRIX_ENABLE = yes
+SIGNALRGB_SUPPORT_ENABLE = yes
+OS_DETECTION_ENABLE = yes

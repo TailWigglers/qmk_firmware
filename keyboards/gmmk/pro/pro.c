@@ -28,3 +28,39 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
     return false;
 }
 #endif
+
+static uint16_t key_timer = 0;
+static uint16_t timeout = 500;
+static bool is_red = true;
+
+#if defined(KEYBOARD_gmmk_pro_rev1_ansi)
+static uint8_t indices[] = { 3, 67, 70, 73, 76, 80, 83, 87, 91 };
+#elif defined(KEYBOARD_gmmk_pro_rev1_iso)
+static uint8_t indices[] = { 3, 68, 71, 74, 77, 81, 84, 88, 92 };
+#endif
+
+void set_indicator_leds(uint8_t red, uint8_t green, uint8_t blue) {
+    for (uint8_t i = 0; i < 9; i++) {
+        rgb_matrix_set_color(indices[i], red, green, blue);
+    }
+}
+
+bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+    if (host_keyboard_led_state().caps_lock) {
+        if (is_red) {
+            set_indicator_leds(RGB_RED);
+        } else {
+            set_indicator_leds(RGB_OFF);
+        }
+
+        if (timer_elapsed(key_timer) > timeout) {
+            key_timer = timer_read();
+            is_red = !is_red;
+        }
+    } else {
+        key_timer = timer_read();
+        is_red = true;
+    }
+    return false;
+}
+

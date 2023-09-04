@@ -41,6 +41,12 @@ void get_unique_identifier(void) //Grab the unique identifier for each specific 
         raw_hid_send(packet, 32);
 }
 
+#if defined(KEYBOARD_gmmk_pro_rev1_ansi)
+static uint8_t indices[] = { 3, 67, 70, 73, 76, 80, 83, 87, 91 };
+#elif defined(KEYBOARD_gmmk_pro_rev1_iso)
+static uint8_t indices[] = { 3, 68, 71, 74, 77, 81, 84, 88, 92 };
+#endif
+
 void led_streaming(uint8_t *data) //Stream data from HID Packets to Keyboard.
 {
     uint8_t index = data[1];
@@ -51,7 +57,7 @@ void led_streaming(uint8_t *data) //Stream data from HID Packets to Keyboard.
         packet[1] = DEVICE_ERROR_LEDS;
         raw_hid_send(packet,32);
         return; 
-    } 
+    }
     
     for (uint8_t i = 0; i < numberofleds; i++)
     {
@@ -59,8 +65,25 @@ void led_streaming(uint8_t *data) //Stream data from HID Packets to Keyboard.
       uint8_t  r = data[offset];
       uint8_t  g = data[offset + 1];
       uint8_t  b = data[offset + 2];
+
+      uint8_t matrix_index = index + i;
+
+      if (host_keyboard_led_state().caps_lock) {
+        bool skip = false;
+
+        for (uint8_t j = 0; j < 9; j++) {
+            if (indices[j] == matrix_index) {
+                skip = true;
+                break;
+            }
+        }
+
+        if (skip) {
+            continue;
+        }
+      }
     
-      rgb_matrix_set_color(index + i, r, g, b);
+      rgb_matrix_set_color(matrix_index, r, g, b);
      }
 }
 
